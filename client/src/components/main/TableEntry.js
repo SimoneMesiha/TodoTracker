@@ -13,6 +13,21 @@ const TableEntry = (props) => {
     const [editingDescr, toggleDescrEdit] = useState(false);
     const [editingStatus, toggleStatusEdit] = useState(false);
 
+    // Editing the new new column which is text
+    const assigned_to = data.assigned_to;
+    const [editingAssigned, toggleAssignedEdit] = useState(false);
+
+
+    const handleAssignedEdit = (e) => {
+        toggleDescrEdit(false);
+        const newAssigned = e.target.value ? e.target.value : 'No Assigned';
+        const prevAssigned = assigned_to;
+        props.editItem(data._id, 'assigned_to', newAssigned, prevAssigned);
+    };
+
+
+    //
+
     const handleDateEdit = (e) => {
         toggleDateEdit(false);
         const newDate = e.target.value ? e.target.value : 'No Date';
@@ -36,7 +51,7 @@ const TableEntry = (props) => {
 
     return (
         <WRow className='table-entry'>
-            <WCol size="4">
+            <WCol size="3">
                 {
                     editingDescr || description === ''
                         ? <WInput
@@ -50,8 +65,8 @@ const TableEntry = (props) => {
                         </div>
                 }
             </WCol>
-
-            <WCol size="3">
+ 
+            <WCol size="2">
                 {
                     editingDate ? <input
                         className='table-input' onBlur={handleDateEdit}
@@ -79,6 +94,24 @@ const TableEntry = (props) => {
                         </div>
                 }
             </WCol>
+
+            <WCol size ="1">
+                {
+                    editingAssigned || assigned_to === ''
+                        ? <WInput
+                            className='table-input' onBlur={handleAssignedEdit}
+                            autoFocus={true} defaultValue={"None Yet"} type='text'
+                            wType="outlined" barAnimation="solid" inputClass="table-input-class"
+                        />
+                        : <div className="table-text"
+                            onClick={() => toggleAssignedEdit(!editingAssigned)}
+                        >{"None"}
+                        </div>
+                }
+
+            </WCol>
+
+
 
             <WCol size="3">
                 <div className='button-group'>

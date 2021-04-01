@@ -8,19 +8,29 @@ const TableHeader = (props) => {
     const clickDisabled = () => { };
 
     return (
+        
         <WRow className="table-header">
-            <WCol size="4">
+            {/* /* this was 4 */ }
+            <WCol size="3">
                 <WButton className='table-header-section' wType="texted" >Task</WButton>
             </WCol>
-
-            <WCol size="3">
+             {/* /* this was 3 */ }
+            <WCol size="2">
                 <WButton className='table-header-section' wType="texted">Due Date</WButton>
             </WCol>
-
+             {/* /* this was 2 */ }
             <WCol size="2">
                 <WButton className='table-header-section' wType="texted" >Status</WButton>
             </WCol>
 
+
+
+            {/* This was added by me with the intention of making it a sorting method */} 
+            <WCol size="1">
+                <WButton className='table-header-section' wType="texted" >AssignedTo</WButton>
+            </WCol>
+
+            {/* /* this was 3 */ }
             <WCol size="3">
                 <div className="table-header-buttons">
                     <WButton onClick={props.disabled ? clickDisabled : props.addItem} wType="texted" className={`${buttonStyle}`}>
