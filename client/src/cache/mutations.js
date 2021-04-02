@@ -13,6 +13,24 @@ export const LOGIN = gql`
 	}
 `;
 
+
+//Mine for sorting
+export const SORTING = gql`
+	mutation SORTING($_id: String!, $sortType: String!){
+		sortItems(_id: $_id, sortType: $sortType){
+			_id
+			id
+			description
+			due_date
+			assigned_to
+			completed
+		}
+	}
+	
+	
+	`;
+
+
 export const REGISTER = gql`
 	mutation Register($email: String!, $password: String!, $firstName: String!, $lastName: String!) {
 		register(email: $email, password: $password, firstName: $firstName, lastName: $lastName) {

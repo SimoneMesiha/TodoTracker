@@ -14,7 +14,8 @@ import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { UpdateListField_Transaction, 
 	UpdateListItems_Transaction, 
 	ReorderItems_Transaction, 
-	EditItem_Transaction } 				from '../../utils/jsTPS';
+	EditItem_Transaction,
+	Sorting_Transaction } 				from '../../utils/jsTPS';
 import WInput from 'wt-frontend/build/components/winput/WInput';
 
 
@@ -25,7 +26,7 @@ const Homescreen = (props) => {
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
-
+	//These are from mutation javascript file
 	const [ReorderTodoItems] 		= useMutation(mutations.REORDER_ITEMS);
 	const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD);
 	const [UpdateTodolistField] 	= useMutation(mutations.UPDATE_TODOLIST_FIELD);
@@ -34,6 +35,20 @@ const Homescreen = (props) => {
 	const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM);
 
+	//From me
+	const [SortToDoListitems]       =useMutation(mutations.SORTING)
+	const [sortLowerOrUpper] = useState(-1)
+
+
+
+	const sortItems = async (sortType) => {
+		let listID = activeList._id;
+		let transaction = new Sorting_Transaction(listID,sortLowerOrUpper ,SortToDoListitems,sortType);
+		props.tps.addTransaction(transaction);
+		tpsRedo();
+
+	};
+	//This gotta get fixed
 
 	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
 	if(loading) { console.log(loading, 'loading'); }
@@ -125,6 +140,10 @@ const Homescreen = (props) => {
 		tpsRedo();
 
 	};
+
+
+
+
 
 	const createNewList = async () => {
 		const length = todolists.length
@@ -225,6 +244,10 @@ const Homescreen = (props) => {
 									editItem={editItem} reorderItem={reorderItem}
 									setShowDelete={setShowDelete}
 									activeList={activeList} setActiveList={setActiveList}
+
+
+									sort = {sortItems}
+									sortLowerOrUpper = {sortLowerOrUpper}
 								/>
 							</div>
 						:

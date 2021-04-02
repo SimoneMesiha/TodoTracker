@@ -12,7 +12,11 @@ const TableHeader = (props) => {
         <WRow className="table-header">
             {/* /* this was 4 */ }
             <WCol size="3">
-                <WButton className='table-header-section' wType="texted" >Task</WButton>
+                <WButton className='table-header-section' wType="texted"
+                
+                onClick ={()=>{props.sort('description')}} // without arrow function it gets automatically triggered before pressing. with arrow it gets triggered after actually clicking
+
+                >Task</WButton>
             </WCol>
              {/* /* this was 3 */ }
             <WCol size="2">
@@ -22,7 +26,7 @@ const TableHeader = (props) => {
             <WCol size="2">
                 <WButton className='table-header-section' wType="texted" >Status</WButton>
             </WCol>
-
+   {/* dfsf */}
 
 
             {/* This was added by me with the intention of making it a sorting method */} 

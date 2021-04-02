@@ -140,8 +140,8 @@ module.exports = {
 		reorderItems: async (_, args) => {
 			const { _id, itemId, direction } = args;
 			const listId = new ObjectId(_id);
-			const found = await Todolist.findOne({_id: listId});
-			let listItems = found.items;
+			const found = await Todolist.findOne({_id: listId}); // gets the properList
+			let listItems = found.items; // gets the items within the list
 			const index = listItems.findIndex(item => item._id.toString() === itemId);
 			// move selected item visually down the list
 			if(direction === 1 && index < listItems.length - 1) {
@@ -163,6 +163,44 @@ module.exports = {
 			listItems = found.items;
 			return (found.items);
 
+		},
+		sortItems: async(_,args)=>{
+			console.log("hello world");
+			const {_id,sortType} = args;
+			const listId = new ObjectId(_id);
+			const found = await Todolist.findOne({_id: listId}); // gets the properList
+			let listItems = found.items; // gets the items within the list
+
+			listItems.sort((a,b)=>{// a and b are different object that are gonna get compared
+				if(sortType === 'description'){
+
+					if(a.description< b.description){
+						return -1;
+					}else{
+						return 1;
+					}
+
+
+				}else if(sortType === 'due_date'){
+					if(a.due_date < b.due_date){
+						return -1;
+					}else{
+						return 1;
+					}
+				}else if(sortType === 'status'){
+					if(a.status < b.status){
+						return -1;
+					}else{
+						return 1;
+					}
+				}
+			})
+
+			const updated = await Todolist.updateOne({_id: listId}, { items: listItems });
+			if(updated) return (listItems);
+			// return old ordering if reorder was unsuccessful
+			listItems = found.items;
+			return (found.items);
 		}
 
 	}

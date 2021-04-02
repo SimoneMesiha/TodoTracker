@@ -100,7 +100,7 @@ const TableEntry = (props) => {
                     editingAssigned || assigned_to === ''
                         ? <WInput
                             className='table-input' onBlur={handleAssignedEdit}
-                            autoFocus={true} defaultValue={"None Yet"} type='text'
+                            autoFocus={true} defaultValue={"None"} type='text'
                             wType="outlined" barAnimation="solid" inputClass="table-input-class"
                         />
                         : <div className="table-text"
