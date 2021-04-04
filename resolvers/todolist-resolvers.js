@@ -36,7 +36,7 @@ module.exports = {
 			@returns {string} the objectID of the item or an error message
 		**/
 		addItem: async(_, args) => {
-			const { _id, item } = args;
+			const { _id, item , index} = args;
 			const listId = new ObjectId(_id);
 			const objectId = new ObjectId();
 			const found = await Todolist.findOne({_id: listId});
@@ -47,13 +47,14 @@ module.exports = {
 			//item._id = objectId;							//To fix the bug
 			/////////////////////
 			if(item._id ===''){
-				item.id = objectId;
+				item._id = objectId;
 			}
 			///////////////////
 
 
 			let listItems = found.items;
-			listItems.push(item);
+			if(index < 0) listItems.push(item);
+   			else listItems.splice(index, 0, item);
 			
 			const updated = await Todolist.updateOne({_id: listId}, { items: listItems });
 

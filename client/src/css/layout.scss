@@ -125,14 +125,26 @@ html {
 
 .modal-input {
     width: 100%;
+    
 }
 
 .login-modal {
     width: 350px;
+    height: 350px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    outline: auto;
 }
 
 .signup-modal {
     width: 375px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    outline: auto;
 }
 
 .modal-col-gap{
@@ -151,16 +163,31 @@ html {
 
 .main-login-modal {
     padding: 24px 24px 0px 24px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    outline: auto;
 }
 
 .modal-error {
     height: 24px;
     align-items: center;
     display: flex;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    outline: auto;
 }
 
 .delete-modal {
     width: fit-content;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    outline: auto;
 }
 
 .col-spacer {
@@ -191,3 +218,4 @@ html {
     padding-right: 0px !important;
     //font-size: 1.125rem;
 }
+
