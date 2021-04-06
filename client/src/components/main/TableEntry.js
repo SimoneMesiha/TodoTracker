@@ -5,6 +5,9 @@ const TableEntry = (props) => {
     const { data } = props;
 
     const completeStyle = data.completed ? ' complete-task' : ' incomplete-task';
+    //by
+    const completeStyleAssigned = data.completed ? ' complete-taskAssigned' : ' incomplete-taskAssigned';
+
 
     const description = data.description;
     const due_date = data.due_date;
@@ -19,7 +22,7 @@ const TableEntry = (props) => {
 
 
     const handleAssignedEdit = (e) => {
-        toggleDescrEdit(false);
+        toggleAssignedEdit(false);
         const newAssigned = e.target.value ? e.target.value : 'No Assigned';
         const prevAssigned = assigned_to;
         props.editItem(data._id, 'assigned_to', newAssigned, prevAssigned);
@@ -100,12 +103,13 @@ const TableEntry = (props) => {
                     editingAssigned || assigned_to === ''
                         ? <WInput
                             className='table-input' onBlur={handleAssignedEdit}
-                            autoFocus={true} defaultValue={"None"} type='text'
+                            autoFocus={true} defaultValue={assigned_to} type='text'
                             wType="outlined" barAnimation="solid" inputClass="table-input-class"
                         />
                         : <div className="table-text"
                             onClick={() => toggleAssignedEdit(!editingAssigned)}
-                        >{"None"}
+                            className= {`${completeStyleAssigned} table-text`}
+                        >{assigned_to}
                         </div>
                 }
 

@@ -86,6 +86,8 @@ const Homescreen = (props) => {
 	// The return id is assigned to the item, and the item is appended
 	//  to the local cache copy of the active todolist. 
 	const addItem = async () => {
+		console.log(activeList);
+		console.log(data);
 		let list = activeList;
 		const items = list.items;
 		const lastID = items.length >= 1 ? items[items.length - 1].id + 1 : 0;
@@ -94,7 +96,7 @@ const Homescreen = (props) => {
 			id: lastID,
 			description: 'No Description',
 			due_date: 'No Date',
-			assigned_to: props.user._id,
+			assigned_to: " No Assigned",
 			completed: false
 		};
 		let opcode = 1;
@@ -146,6 +148,7 @@ const Homescreen = (props) => {
 
 
 	const createNewList = async () => {
+		console.log("add new List");
 		const length = todolists.length
 		const id = length >= 1 ? todolists[length - 1].id + Math.floor((Math.random() * 100) + 1) : 1;
 		let list = {
@@ -156,6 +159,12 @@ const Homescreen = (props) => {
 			items: [],
 		}
 		const { data } = await AddTodolist({ variables: { todolist: list }, refetchQueries: [{ query: GET_DB_TODOS }] });
+
+		console.log(data)
+
+		
+		
+
 		setActiveList(list)
 	};
 
@@ -163,6 +172,7 @@ const Homescreen = (props) => {
 
 	//added the window and if only
 	const deleteList = async (_id) => {
+		console.log("deleteToDoList")
 		DeleteTodolist({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_TODOS }] });
 		refetch();
 		setActiveList({});

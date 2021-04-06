@@ -20,11 +20,19 @@ const TableHeader = (props) => {
             </WCol>
              {/* /* this was 3 */ }
             <WCol size="2">
-                <WButton className='table-header-section' wType="texted">Due Date</WButton>
+                <WButton className='table-header-section' wType="texted"
+                
+                onClick ={()=>{props.sort('due_date')}}
+                
+                >Due Date</WButton>
             </WCol>
              {/* /* this was 2 */ }
             <WCol size="2">
-                <WButton className='table-header-section' wType="texted" >Status</WButton>
+                <WButton className='table-header-section' wType="texted" 
+                
+                onClick ={()=>{props.sort('completed')}}
+                
+                >Status</WButton>
             </WCol>
    {/* dfsf */}
 

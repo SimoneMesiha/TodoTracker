@@ -17,7 +17,7 @@ const MainContents = (props) => {
 
             />
             <TableContents
-                key={props.activeList.id} activeList={props.activeList}
+                key={props.activeList._id} activeList={props.activeList}
                 deleteItem={props.deleteItem} reorderItem={props.reorderItem}
                 editItem={props.editItem}
             />
