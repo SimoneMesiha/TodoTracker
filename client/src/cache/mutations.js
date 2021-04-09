@@ -16,8 +16,8 @@ export const LOGIN = gql`
 
 //Mine for sorting
 export const SORTING = gql`
-	mutation SORTING($_id: String!, $sortType: String!){
-		sortItems(_id: $_id, sortType: $sortType){
+	mutation SORTING($_id: String!, $sortType: String!, $order: Int!){
+		sortItems(_id: $_id, sortType: $sortType, order: $order){
 			_id
 			id
 			description
@@ -91,6 +91,21 @@ export const REORDER_ITEMS = gql`
 		}
 	}
 `;
+
+//made by me
+export const MOVE_TO_TOP = gql`
+	mutation listToTop($_id: String!) {
+		listToTop(_id: $_id){
+			_id
+			id
+			name
+			owner
+	
+		}
+	}
+	`;
+
+
 
 export const ADD_TODOLIST = gql`
 	mutation AddTodolist($todolist: TodoInput!) {

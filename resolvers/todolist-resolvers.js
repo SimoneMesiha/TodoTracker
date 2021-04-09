@@ -14,7 +14,7 @@ module.exports = {
 		getAllTodos: async (_, __, { req }) => {
 			const _id = new ObjectId(req.userId);
 			if(!_id) { return([])};
-			const todolists = await Todolist.find({owner: _id});
+			const todolists = await Todolist.find({owner: _id}).sort({"id":1});
 			if(todolists) return (todolists);
 
 		},
@@ -36,6 +36,7 @@ module.exports = {
 			@returns {string} the objectID of the item or an error message
 		**/
 		addItem: async(_, args) => {
+			
 			const { _id, item , index} = args;
 			const listId = new ObjectId(_id);
 			const objectId = new ObjectId();
@@ -78,6 +79,7 @@ module.exports = {
 				items: items
 			});
 			const updated = newList.save();
+	
 			if(updated) return objectId;
 			else return ('Could not add todolist');
 		},
@@ -87,6 +89,7 @@ module.exports = {
 							 array on failure
 		**/
 		deleteItem: async (_, args) => {
+		
 			const  { _id, itemId } = args;
 			const listId = new ObjectId(_id);
 			const found = await Todolist.findOne({_id: listId});
@@ -102,6 +105,7 @@ module.exports = {
 			@returns {boolean} true on successful delete, false on failure
 		**/
 		deleteTodolist: async (_, args) => {
+			console.log("todolist: ");
 			const { _id } = args;
 			const objectId = new ObjectId(_id);
 			const deleted = await Todolist.deleteOne({_id: objectId});
@@ -150,6 +154,7 @@ module.exports = {
 			@returns {array} the reordered item array on success, or initial ordering on failure
 		**/
 		reorderItems: async (_, args) => {
+			
 			const { _id, itemId, direction } = args;
 			const listId = new ObjectId(_id);
 			const found = await Todolist.findOne({_id: listId}); // gets the properList
@@ -178,11 +183,12 @@ module.exports = {
 		},
 		sortItems: async(_,args)=>{
 			console.log("hello world");
-			const {_id,sortType} = args;
+			const {_id,sortType, order} = args;
 			const listId = new ObjectId(_id);
 			const found = await Todolist.findOne({_id: listId}); // gets the properList
 			let listItems = found.items; // gets the items within the list
-
+			
+		if(order === 1){
 			listItems.sort((a,b)=>{// a and b are different object that are gonna get compared
 				if(sortType === 'description'){
 
@@ -199,20 +205,79 @@ module.exports = {
 					}else{
 						return 1;
 					}
-				}else if(sortType === 'status'){
-					if(a.status < b.status){
+				}else if(sortType === 'completed'){
+					if(a.completed < b.completed){
 						return -1;
 					}else{
 						return 1;
 					}
 				}
 			})
+		}else{
 
+
+
+			listItems.sort((a,b)=>{// a and b are different object that are gonna get compared
+				if(sortType === 'description'){
+
+					if(a.description< b.description){
+						return 1;
+					}else{
+						return -1;
+					}
+
+
+				}else if(sortType === 'due_date'){
+					if(a.due_date < b.due_date){
+						return 1;
+					}else{
+						return -1;
+					}
+				}else if(sortType === 'completed'){
+					if(a.completed < b.completed){
+						return 1;
+					}else{
+						return -1;
+					}
+				}
+			})
+
+
+
+		}
 			const updated = await Todolist.updateOne({_id: listId}, { items: listItems });
 			if(updated) return (listItems);
 			// return old ordering if reorder was unsuccessful
 			listItems = found.items;
 			return (found.items);
+		},
+
+		listToTop: async(_,args)=>{
+			console.log("fadsfs");
+			const {_id} = args;
+			const listId = new ObjectId(_id);
+
+			const todolists = await Todolist.find()
+			let smallest = todolists[0].id;
+			
+			for(let i = 1 ;i< todolists.length;i++){
+				if(todolists[i].id< smallest){
+					smallest = todolists[i].id;
+				}
+			}
+
+			const updated = await Todolist.updateOne({_id: listId},{id:(smallest-1)}); // update1 takes in 
+			if(updated){
+				return Todolist.findOne({id: smallest});
+			}else{
+				return todolists[0];
+			}
+
+			//find all todolist in databases find()
+			//await makes sure it waits for the full database query.
+			//const sorter = await Todolist.find().sort({"id": 1}); //1 sorts by ascending order
+			//const updated = await Todolist.updateOne({_id: listId}, { items: listItems });
+			
 		}
 
 	}

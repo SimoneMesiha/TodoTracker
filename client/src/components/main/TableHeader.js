@@ -14,7 +14,7 @@ const TableHeader = (props) => {
             <WCol size="3">
                 <WButton className='table-header-section' wType="texted"
                 
-                onClick ={()=>{props.sort('description')}} // without arrow function it gets automatically triggered before pressing. with arrow it gets triggered after actually clicking
+                onClick ={()=>{props.sort('description', props.sortLowerOrUpper)}} // without arrow function it gets automatically triggered before pressing. with arrow it gets triggered after actually clicking
 
                 >Task</WButton>
             </WCol>
@@ -22,7 +22,7 @@ const TableHeader = (props) => {
             <WCol size="2">
                 <WButton className='table-header-section' wType="texted"
                 
-                onClick ={()=>{props.sort('due_date')}}
+                onClick ={()=>{props.sort('due_date', props.sortLowerOrUpper)}}
                 
                 >Due Date</WButton>
             </WCol>
@@ -30,7 +30,7 @@ const TableHeader = (props) => {
             <WCol size="2">
                 <WButton className='table-header-section' wType="texted" 
                 
-                onClick ={()=>{props.sort('completed')}}
+                onClick ={()=>{props.sort('completed', props.sortLowerOrUpper)}}
                 
                 >Status</WButton>
             </WCol>

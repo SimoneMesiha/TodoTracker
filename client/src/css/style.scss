@@ -53,6 +53,14 @@ html, body {
     background-color: $background-color;
 }
 
+.complete-taskAssigned{
+    color: black;
+    
+}
+.incomplete-taskAssigned{
+    color: red;
+}
+
 .complete-task {
     color: var(--light-blue);
 }
@@ -187,7 +195,16 @@ html, body {
 
 .undo-redo {
     color: $text-color;
+    
 }
+
+// #undo{
+//     display: flex;
+//     position: absolute;
+//     left: 20ch;
+//     top: 50%;
+//     transform: translate(-50%, -50%);
+// }
 
 .table-entry-buttons {
     color: $text-color;

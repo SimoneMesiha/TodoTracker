@@ -12,6 +12,7 @@ const MainContents = (props) => {
 
                 sort = {props.sort}
                 sortLowerOrUpper = {props.sortLowerOrUpper}
+                
                 // deleteList = {props.deleteList}
                 // activeList = {props.activeList}
 

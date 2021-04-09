@@ -92,7 +92,8 @@ const TableEntry = (props) => {
                         <option value="complete">complete</option>
                         <option value="incomplete">incomplete</option>
                     </select>
-                        : <div onClick={() => toggleStatusEdit(!editingStatus)} className={`${completeStyle} table-text`}>
+                        : <div onClick={() => toggleStatusEdit(!editingStatus)} 
+                        className={`${completeStyle} table-text`}>
                             {status}
                         </div>
                 }

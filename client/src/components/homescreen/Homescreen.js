@@ -26,6 +26,7 @@ const Homescreen = (props) => {
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
+	
 	//These are from mutation javascript file
 	const [ReorderTodoItems] 		= useMutation(mutations.REORDER_ITEMS);
 	const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD);
@@ -34,17 +35,23 @@ const Homescreen = (props) => {
 	const [DeleteTodoItem] 			= useMutation(mutations.DELETE_ITEM);
 	const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM);
-
+	const [ListToTop]				= useMutation(mutations.MOVE_TO_TOP);
+ 
 	//From me
 	const [SortToDoListitems]       =useMutation(mutations.SORTING)
-	const [sortLowerOrUpper] = useState(-1)
+	const [sortLowerOrUpper, setNegate] = useState(1)
 
 
 
-	const sortItems = async (sortType) => {
+	const sortItems = async (sortType, direction) => {
 		let listID = activeList._id;
-		let transaction = new Sorting_Transaction(listID,sortLowerOrUpper ,SortToDoListitems,sortType);
+		let transaction = new Sorting_Transaction(listID,sortLowerOrUpper ,SortToDoListitems,sortType,direction, activeList);
 		props.tps.addTransaction(transaction);
+		if(sortLowerOrUpper===1){
+			setNegate(-1);
+		}else{
+			setNegate(1);
+		}
 		tpsRedo();
 
 	};
@@ -192,8 +199,14 @@ const Homescreen = (props) => {
 
 	};
 
-	const handleSetActive = (id) => {
-		const todo = todolists.find(todo => todo.id === id || todo._id === id);
+	const  handleSetActive = async (id, _id) => {
+		console.log(_id)
+		const {data} =  await ListToTop({ variables: { _id: _id }}); // awaits for the database query to
+	    refetch();
+		//be totally done
+		// console.log(_id)
+		const todo =  todolists.find(todo => todo.id === id || todo._id === id);
+		console.log(todo);
 		setActiveList(todo);
 	};
 

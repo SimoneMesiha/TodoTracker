@@ -49,18 +49,30 @@ export class ReorderItems_Transaction extends jsTPS_Transaction {
 
 //My sorting function
 export class Sorting_Transaction extends jsTPS_Transaction{
-    constructor(listId, flag, callback, sortType){
+    constructor(listId, flag, callback, sortType, direction,activeList){
         super();
         this.listID = listId;
         this.flag = flag;
         this.updateFunction = callback;
-        this.oppFlag = flag * -1
-        this.sortType = sortType
+        this.oppFlag = flag * -1;
+        this.sortType = sortType;
+        this.direction = direction;
+
+        this.items = activeList.items;
+        this.original = [];
     }
 
     async doTransaction(){
         console.log("hello world");
-        const { data } = await this.updateFunction({ variables: { _id: this.listID, sortType: this.sortType}});
+
+        for(let i =0;i<this.items.length;i++){
+            this.original.push(this.items[i]);
+        }
+        console.log(this.original);
+
+        
+
+        const { data } = await this.updateFunction({ variables: { _id: this.listID, sortType: this.sortType, order: this.direction}});
         console.log("Hello WOrld2")
 		return data;
         
@@ -68,7 +80,7 @@ export class Sorting_Transaction extends jsTPS_Transaction{
     }
 
     async undoTransaction(){
-        const { data } = await this.updateFunction({ variables: { _id: this.listID, sortType: this.sortType}});
+        const { data } = this.original;
 		return data;
     }
 }
