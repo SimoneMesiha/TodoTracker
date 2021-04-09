@@ -52,10 +52,19 @@ const TableEntry = (props) => {
         props.editItem(data._id, 'completed', newStatus, prevStatus);
     };
 
+    let selected = ()=>{
+        if(props.isCurrent(data._id)){
+            return "-selected";
+        }else{
+            return ""
+        }
+    }
+
     return (
         <WRow className='table-entry'>
             <WCol size="3">
                 {
+                    
                     editingDescr || description === ''
                         ? <WInput
                             className='table-input' onBlur={handleDescrEdit}

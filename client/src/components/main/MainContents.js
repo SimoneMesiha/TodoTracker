@@ -21,6 +21,8 @@ const MainContents = (props) => {
                 key={props.activeList._id} activeList={props.activeList}
                 deleteItem={props.deleteItem} reorderItem={props.reorderItem}
                 editItem={props.editItem}
+
+                isCurrent = {props.isCurrent}
             />
         </div>
     );

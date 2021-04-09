@@ -258,6 +258,10 @@ const Homescreen = (props) => {
 		refetch();
 	}
 
+	const isCurrent = async(testId)=>{
+		return activeList._id == testId;
+	}
+
 
 	return (
 		<div id="root"
@@ -293,6 +297,9 @@ const Homescreen = (props) => {
 								handleSetActive={handleSetActive} createNewList={createNewList}
 								undo={tpsUndo} redo={tpsRedo}
 								updateListField={updateListField}
+
+								isCurrent = {isCurrent}
+								active_id={activeList._id}
 							/>
 							:
 							<></>
@@ -314,6 +321,7 @@ const Homescreen = (props) => {
 
 									sort = {sortItems}
 									sortLowerOrUpper = {sortLowerOrUpper}
+									isCurrent = {isCurrent}
 								/>
 							</div>
 						:

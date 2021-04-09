@@ -130,12 +130,7 @@ html {
 
 .login-modal {
     width: 350px;
-    height: 350px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    outline: auto;
+    
 }
 
 .signup-modal {
@@ -163,31 +158,19 @@ html {
 
 .main-login-modal {
     padding: 24px 24px 0px 24px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    outline: auto;
+   
 }
 
 .modal-error {
     height: 24px;
     align-items: center;
     display: flex;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    outline: auto;
+    
 }
 
 .delete-modal {
     width: fit-content;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    outline: auto;
+   
 }
 
 .col-spacer {
@@ -219,3 +202,7 @@ html {
     //font-size: 1.125rem;
 }
 
+#list-item-active {
+     background-color: #FFC819;
+     color: black;
+}
