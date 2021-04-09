@@ -278,7 +278,17 @@ module.exports = {
 			//const sorter = await Todolist.find().sort({"id": 1}); //1 sorts by ascending order
 			//const updated = await Todolist.updateOne({_id: listId}, { items: listItems });
 			
-		}
+		},
 
+		solverUndo : async(_,args)=>{
+			console.log("fadsfs");
+			const {_id, oldList} = args;
+			const listId = new ObjectId(_id);
+
+			const found = await Todolist.findOne({_id : listId}) 
+			
+			const updated = await Todolist.updateOne({_id:listId},{items:oldList})
+			return found.items;
+		}
 	}
 }

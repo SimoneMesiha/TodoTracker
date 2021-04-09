@@ -33,6 +33,8 @@ const typeDefs = gql `
 
 		listToTop(_id:String!): Todolist
 
+		solverUndo(_id: String!, oldList: [ItemInput]!): [Item]
+
 	}
 	input FieldInput {
 		_id: String

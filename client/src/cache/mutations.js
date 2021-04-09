@@ -29,6 +29,18 @@ export const SORTING = gql`
 	
 	
 	`;
+export const SOLVERUNDO = gql`
+mutation SOLVERUNDO($_id: String!, $oldList: [ItemInput]!){
+	solverUndo(_id: $_id, oldList: $oldList){
+			_id
+			id
+			description
+			due_date
+			assigned_to
+			completed
+		}
+	}
+`;
 
 
 export const REGISTER = gql`

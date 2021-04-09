@@ -49,7 +49,7 @@ export class ReorderItems_Transaction extends jsTPS_Transaction {
 
 //My sorting function
 export class Sorting_Transaction extends jsTPS_Transaction{
-    constructor(listId, flag, callback, sortType, direction,activeList){
+    constructor(listId, flag, callback, sortType, direction,activeList, sortUndo, items){
         super();
         this.listID = listId;
         this.flag = flag;
@@ -57,30 +57,37 @@ export class Sorting_Transaction extends jsTPS_Transaction{
         this.oppFlag = flag * -1;
         this.sortType = sortType;
         this.direction = direction;
+        this.sortUndo = sortUndo;
+        this.items = items;
 
-        this.items = activeList.items;
+        // this.items = activeList.items;
         this.original = [];
     }
 
     async doTransaction(){
-        console.log("hello world");
-
-        for(let i =0;i<this.items.length;i++){
-            this.original.push(this.items[i]);
-        }
-        console.log(this.original);
-
-        
-
+        console.log("hello world");        
         const { data } = await this.updateFunction({ variables: { _id: this.listID, sortType: this.sortType, order: this.direction}});
         console.log("Hello WOrld2")
 		return data;
-        
-
+    
     }
 
     async undoTransaction(){
-        const { data } = this.original;
+        console.log(this.items);
+        let newItems = [];
+        for(let i = 0; i< this.items.length;i++){
+            let newItem = {
+                _id: this.items[i]._id,
+		        id: this.items[i].id,
+		        description: this.items[i].description,
+		        due_date: this.items[i].due_date,
+		        assigned_to: this.items[i].assigned_to,
+		        completed:  this.items[i].completed
+            }
+            newItems.push(newItem);
+        }
+        const { data } = await this.sortUndo({variables:{_id: this.listID, oldList: newItems}});
+        console.log("2")
 		return data;
     }
 }

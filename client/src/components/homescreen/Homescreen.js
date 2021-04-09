@@ -40,12 +40,13 @@ const Homescreen = (props) => {
 	//From me
 	const [SortToDoListitems]       =useMutation(mutations.SORTING)
 	const [sortLowerOrUpper, setNegate] = useState(1)
+	const [SortUndo] = useMutation(mutations.SOLVERUNDO)
 
 
 
 	const sortItems = async (sortType, direction) => {
 		let listID = activeList._id;
-		let transaction = new Sorting_Transaction(listID,sortLowerOrUpper ,SortToDoListitems,sortType,direction, activeList);
+		let transaction = new Sorting_Transaction(listID,sortLowerOrUpper ,SortToDoListitems,sortType,direction, activeList, SortUndo, activeList.items);
 		props.tps.addTransaction(transaction);
 		if(sortLowerOrUpper===1){
 			setNegate(-1);
