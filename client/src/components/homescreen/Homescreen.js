@@ -235,7 +235,37 @@ const Homescreen = (props) => {
 		toggleShowDelete(!showDelete)
 	}
 
+	const toUndo = async(e)=>{
+		if(e.ctrlKey && e.keyCode == 90){
+			tpsUndo()
+			console.log("undo has been called")
+		}
+		
+	}
+
+	const toRedo = async(e)=>{
+		if(e.ctrlKey && e.keyCode == 89){
+			tpsRedo()
+			console.log("redo has been called")
+
+		}
+	
+	}
+	const undoRedo = async(e)=>{
+		console.log("why you not working")
+		toUndo(e);
+		toRedo(e);
+		refetch();
+	}
+
+
 	return (
+		<div id="root"
+			onKeyDown ={undoRedo}
+			tabIndex={0}
+		>
+		
+
 		<WLayout wLayout="header-lside">
 			<WLHeader>
 				<WNavbar color="colored">
@@ -305,6 +335,8 @@ const Homescreen = (props) => {
 			}
 
 		</WLayout>
+
+		</div>
 	);
 };
 
